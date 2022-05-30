@@ -1,5 +1,4 @@
 import { useUser, withPageAuthRequired } from "@auth0/nextjs-auth0";
-import { useMeQuery } from "../../graphql/generated/graphql";
 import { getServerPage, ssr, useMe } from "../../graphql/generated/page";
 import { withApollo } from "../../lib/withApollo";
 
