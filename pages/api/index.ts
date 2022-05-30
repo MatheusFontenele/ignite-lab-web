@@ -14,7 +14,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse){
   return httpProxyMiddleware( req, res,{
     target: "http://localhost:3332/graphql",
     headers: {
-      accessToken: `Bearer ${accessToken}`
+      'Authorization': `Bearer ${accessToken}`
     }
   })
 }
