@@ -2,9 +2,10 @@ overwrite: true
 
 schema: 'http://localhost:3332/graphql'
 
+documents: './graphql/**/*.graphql'
+
 generates:
   graphql/generated/graphql.tsx:
-    documents: './graphql/**/*.graphql'
     plugins:
       - 'typescript'
       - 'typescript-operations'
@@ -16,9 +17,7 @@ generates:
       withComponent: false
       exportFragmentSpreadSubTypes: true
       documentMode: graphQLTag
-
   graphql/generated/page.tsx:
-    documents: './graphql/private/**/*.graphql'
     config:
       documentMode: external
       importDocumentNodeExternallyFrom: ./graphql
@@ -27,22 +26,6 @@ generates:
       contextType: 'ApolloClientContext'
       contextTypeRequired: true
       apolloClientInstanceImport: '../../lib/withApollo'
-    preset: import-types
-    presetConfig:
-      typesPath: ./graphql
-    plugins:
-      - 'graphql-codegen-apollo-next-ssr'
-
-  graphql/generated/pagePublic.tsx:
-    documents: './graphql/public/**/*.graphql'
-    config:
-      documentMode: external
-      importDocumentNodeExternallyFrom: ./graphql
-      reactApolloVersion: 3
-      withHooks: true
-      contextType: 'ApolloClientContext'
-      contextTypeRequired: true
-      apolloClientInstanceImport: '../../lib/withPublicApollo'
     preset: import-types
     presetConfig:
       typesPath: ./graphql

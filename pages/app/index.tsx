@@ -1,25 +1,30 @@
-import { gql, useQuery } from "@apollo/client";
-import { getAccessToken, useUser, withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { useUser, withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { useMeQuery } from "../../graphql/generated/graphql";
+import { getServerPage, ssr, useMe } from "../../graphql/generated/page";
 import { withApollo } from "../../lib/withApollo";
 
-function Home() {
+function Home(props) {
   const { user } = useUser();
+  const {data: me} = useMe()
+  console.log(me);
+  
   return (
     <div>
       <h1>hello world</h1>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
+      ok: <pre>{JSON.stringify(me, null, 2)}</pre>
+      <pre>{JSON.stringify(props, null, 2)}</pre>
     </div>
   );
 }
 
 export const getServerSideProps = withPageAuthRequired({
-  getServerSideProps: async ({req, res}) => {
-    const token = getAccessToken(req, res)  
-    return{
-      props: {
-      }
+  getServerSideProps: async (ctx) => {
+    return {
+      props: {}
     }
   }
 })
 
-export default withApollo(Home)
+export default withApollo(
+  ssr.withPage()(Home)
+)
