@@ -1,5 +1,12 @@
-query Me {
-  me {
-    authUserId
+query Me{
+  me{
+    enrollment {
+      id
+      created_at
+      course{
+        title
+        slug
+      }
+    }
   }
 }

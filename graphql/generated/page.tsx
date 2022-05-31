@@ -42,11 +42,11 @@ export const ssrMe = {
       withPage: withPageMe,
       usePage: useMe,
     }
-export async function getServerPage
-    (options: Omit<Apollo.QueryOptions<Types.QueryVariables>, 'query'>, ctx: ApolloClientContext ){
+export async function getServerPageGetProducts
+    (options: Omit<Apollo.QueryOptions<Types.GetProductsQueryVariables>, 'query'>, ctx: ApolloClientContext ){
         const apolloClient = getApolloClient(ctx);
         
-        const data = await apolloClient.query<Types.Query>({ ...options, query: Operations.Document });
+        const data = await apolloClient.query<Types.GetProductsQuery>({ ...options, query: Operations.GetProductsDocument });
         
         const apolloState = apolloClient.cache.extract();
 
@@ -58,22 +58,22 @@ export async function getServerPage
             },
         };
       }
-export const use = (
-  optionsFunc?: (router: NextRouter)=> QueryHookOptions<Types.Query, Types.QueryVariables>) => {
+export const useGetProducts = (
+  optionsFunc?: (router: NextRouter)=> QueryHookOptions<Types.GetProductsQuery, Types.GetProductsQueryVariables>) => {
   const router = useRouter();
   const options = optionsFunc ? optionsFunc(router) : {};
-  return useQuery(Operations.Document, options);
+  return useQuery(Operations.GetProductsDocument, options);
 };
-export type PageComp = React.FC<{data?: Types.Query, error?: Apollo.ApolloError}>;
-export const withPage = (optionsFunc?: (router: NextRouter)=> QueryHookOptions<Types.Query, Types.QueryVariables>) => (WrappedComponent:PageComp) : NextPage  => (props) => {
+export type PageGetProductsComp = React.FC<{data?: Types.GetProductsQuery, error?: Apollo.ApolloError}>;
+export const withPageGetProducts = (optionsFunc?: (router: NextRouter)=> QueryHookOptions<Types.GetProductsQuery, Types.GetProductsQueryVariables>) => (WrappedComponent:PageGetProductsComp) : NextPage  => (props) => {
                 const router = useRouter()
                 const options = optionsFunc ? optionsFunc(router) : {};
-                const {data, error } = useQuery(Operations.Document, options)    
+                const {data, error } = useQuery(Operations.GetProductsDocument, options)    
                 return <WrappedComponent {...props} data={data} error={error} /> ;
                    
             }; 
-export const ssr = {
-      getServerPage: getServerPage,
-      withPage: withPage,
-      usePage: use,
+export const ssrGetProducts = {
+      getServerPage: getServerPageGetProducts,
+      withPage: withPageGetProducts,
+      usePage: useGetProducts,
     }
