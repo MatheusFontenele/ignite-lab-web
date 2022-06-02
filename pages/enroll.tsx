@@ -1,9 +1,7 @@
 import Head from "next/head";
-import { CalendarIcon } from "@heroicons/react/solid";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { GetStaticProps } from "next";
-import { withPublicApollo } from "../lib/withPublicApollo";
 import { getServerPageGetProducts, ssrGetProducts } from "../graphql/generated/pagePublic";
 import { GetProductsQuery, useCreatePurchaseMutation } from "../graphql/generated/graphql";
 import { withApollo } from "../lib/withApollo";
